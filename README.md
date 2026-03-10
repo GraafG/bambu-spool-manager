@@ -2,6 +2,8 @@
 
 An Android + web app that reads NFC tags on Bambu Lab filament spools and manages your filament inventory. Scan a spool to see its type, color, temperatures, and track stock across printers. Print labels directly from the web app via a Fichero D11s thermal printer.
 
+![All filament spools labeled and organized in containers](images/labeled-filament-spools-collection.jpg)
+
 ## Features
 
 ### Android App
@@ -12,6 +14,11 @@ An Android + web app that reads NFC tags on Bambu Lab filament spools and manage
 - **Search & Filter** — Find spools by type, color, or notes
 - **Cloud Sync** — Firebase Firestore with offline-first sync and Google sign-in
 
+<p float="left">
+  <img src="images/android-app-nfc-scan.png" width="300" alt="Android app scanning an NFC spool and showing filament details" />
+  <img src="images/android-app-inventory.png" width="300" alt="Android app showing the filament inventory list" />
+</p>
+
 ### Web App
 - **Inventory Dashboard** — View all spools in card grid or sortable table view
 - **Filter & Search** — Filter by filament type (PLA Basic, PLA Matte, PETG), search by color name, hex code, or notes
@@ -20,6 +27,15 @@ An Android + web app that reads NFC tags on Bambu Lab filament spools and manage
 - **Batch Print** — Print labels for all inventory spools at once
 - **Label Format** — Filament type, color name, spool ID + hex code (232x96px, 30x14mm stickers)
 - **Live at** [bfm-bambu-filament.web.app](https://bfm-bambu-filament.web.app)
+
+![Web dashboard showing spool details and label preview](images/web-dashboard-spool-detail.png)
+
+### Label Printing
+
+<p float="left">
+  <img src="images/fichero-d11s-printing-label.jpg" width="400" alt="The Fichero D11s printing a label" />
+  <img src="images/label-closeup-pla-basic-cyan.jpg" width="400" alt="Close-up of a printed label on a PLA Basic Cyan spool" />
+</p>
 
 ## Phone Compatibility
 
@@ -227,4 +243,4 @@ This project is licensed under the [MIT License](LICENSE).
 - [Bambu Lab color hex codes](https://printbusters.io/filament-colors/bambu-lab) — Official Bambu Lab filament color reference
 - NFC tag format research inspired by [MifareClassicTool](https://github.com/ikarus23/MifareClassicTool)
 - HKDF key derivation based on community reverse-engineering of Bambu Lab's RFID authentication
-- Built with [Claude Code](https://claude.com/claude-code)
+- Built with GitHub Copilot powered by Claude
