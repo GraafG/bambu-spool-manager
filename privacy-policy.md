@@ -24,11 +24,28 @@ The app does not collect analytics, usage data, crash reports, or any form of tr
 - **Cloud**: When signed in, data syncs to Firebase Firestore. You can delete your cloud data at any time by removing all spools from your inventory.
 
 ## Data Deletion
-You can delete all your data by:
-1. Removing individual spools from the app
-2. Signing out (stops cloud sync)
-3. Uninstalling the app (removes local data)
-4. Contacting us to request deletion of cloud data
+
+### Delete your data (without deleting your account)
+You can delete your spool inventory data at any time:
+1. Open the app and remove individual spools, or remove all spools from your inventory
+2. This deletes the spool data from both your local device and Firebase Firestore immediately
+
+### Delete your account and all associated data
+To fully delete your account and all data:
+1. Remove all spools from your inventory in the app (deletes cloud data immediately)
+2. Sign out of the app (disconnects your Google account)
+3. Uninstall the app (removes all local data including the Room database)
+4. Optionally, revoke BSM's access to your Google account at https://myaccount.google.com/permissions
+
+**What gets deleted:**
+- All spool inventory records (local and cloud)
+- Your authentication session
+
+**What is NOT stored and therefore does not need deletion:**
+- We do not store your Google password, profile photo, or any personal data beyond what is listed above
+- No analytics, logs, or tracking data exist to delete
+
+To request account deletion via email, open an issue at https://github.com/GraafG/bambu-spool-manager/issues and we will delete your Firestore data within 7 days.
 
 ## Children's Privacy
 This app is not directed at children under 13 and does not knowingly collect data from children.
