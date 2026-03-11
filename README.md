@@ -62,7 +62,7 @@ You can check your phone's compatibility by installing [NFC TagInfo](https://pla
 
 #### 1. Clone the repo
 ```bash
-git clone https://github.com/geertdegraaf/bambu-spool-manager.git
+git clone https://github.com/GraafG/bambu-spool-manager.git
 cd bambu-spool-manager
 ```
 
@@ -133,7 +133,37 @@ cd web
 firebase deploy --only hosting
 ```
 
-#### 4. Printer Hardware
+#### 4. Secure Your API Keys
+
+Firebase API keys are designed to be public (security is enforced by Firestore Security Rules and Firebase Auth), but you should still restrict them in the [Google Cloud Console](https://console.cloud.google.com/apis/credentials) to prevent misuse.
+
+**Browser key** (used by the web app):
+1. Application restrictions → **HTTP referrers (websites)**
+2. Add your domains:
+   ```
+   your-project-id.web.app/*
+   your-project-id.firebaseapp.com/*
+   localhost/*
+   ```
+3. API restrictions → **Restrict key** → select:
+   - Cloud Firestore API
+   - Identity Toolkit API
+   - Token Service API
+
+**Android key** (used by the Android app):
+1. Application restrictions → **Android apps**
+2. Add package `com.bambu.nfc` with your SHA-1 fingerprints:
+   ```bash
+   # Debug fingerprint
+   keytool -list -v -keystore ~/.android/debug.keystore -alias androiddebugkey -storepass android
+
+   # Release fingerprint
+   keytool -list -v -keystore your-release-keystore.jks -alias your-alias
+   ```
+3. API restrictions → **Restrict key** → same 3 APIs as above
+4. Add both SHA-1 fingerprints to **Firebase Console** → Project Settings → Android app → SHA certificate fingerprints
+
+#### 5. Printer Hardware
 
 Label printing requires a **Fichero D11s** thermal label printer (available at [Action](https://www.action.com/nl-nl/p/3212141/fichero-labelprinter/) for under 10 euro) with 30x14mm sticker labels. The web app connects via Web Bluetooth (Chrome/Edge/Opera).
 
