@@ -135,7 +135,7 @@ firebase deploy --only hosting
 
 #### 4. Printer Hardware
 
-Label printing requires a **Fichero D11s** thermal label printer (available at [Action](https://www.action.com/nl-nl/p/3212141/fichero-labelprinter/) for ~20 euro) with 30x14mm sticker labels. The web app connects via Web Bluetooth (Chrome/Edge/Opera).
+Label printing requires a **Fichero D11s** thermal label printer (available at [Action](https://www.action.com/nl-nl/p/3212141/fichero-labelprinter/) for under 10 euro) with 30x14mm sticker labels. The web app connects via Web Bluetooth (Chrome/Edge/Opera).
 
 ## How It Works
 
@@ -239,7 +239,7 @@ This project is licensed under the [MIT License](LICENSE).
 ## Acknowledgments
 
 - [fichero-printer](https://github.com/0xMH/fichero-printer) by [@0xMH](https://github.com/0xMH) — Web Bluetooth library for the Fichero D11s thermal label printer, made the label printing integration possible
-- [Fichero D11s label printer](https://www.action.com/nl-nl/p/3212141/fichero-labelprinter/) — Budget thermal printer from Action (~20 euro)
+- [Fichero D11s label printer](https://www.action.com/nl-nl/p/3212141/fichero-labelprinter/) — Budget thermal printer from Action (under 10 euro)
 - [Bambu Lab color hex codes](https://printbusters.io/filament-colors/bambu-lab) — Official Bambu Lab filament color reference
 - NFC tag format research inspired by [MifareClassicTool](https://github.com/ikarus23/MifareClassicTool)
 - HKDF key derivation based on community reverse-engineering of Bambu Lab's RFID authentication

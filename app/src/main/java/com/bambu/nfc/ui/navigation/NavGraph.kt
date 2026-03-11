@@ -58,6 +58,7 @@ fun AppNavGraph(scanViewModel: ScanViewModel) {
                                     imageVector = when (screen) {
                                         Screen.Scan -> Icons.Default.Nfc
                                         Screen.Inventory -> Icons.Default.Inventory2
+                                        Screen.Detail -> Icons.Default.Inventory2
                                     },
                                     contentDescription = screen.label
                                 )
