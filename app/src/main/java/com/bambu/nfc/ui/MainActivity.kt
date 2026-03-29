@@ -3,6 +3,7 @@ package com.bambu.nfc.ui
 import android.app.PendingIntent
 import android.content.Intent
 import android.content.IntentFilter
+import android.net.Uri
 import android.nfc.NfcAdapter
 import android.nfc.Tag
 import android.os.Bundle
@@ -11,6 +12,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -28,6 +30,8 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.lifecycleScope
 import com.bambu.nfc.data.auth.GoogleSignInHelper
@@ -83,6 +87,7 @@ class MainActivity : ComponentActivity() {
                         }
                     }
                     AuthState.SignedOut -> {
+                        val context = LocalContext.current
                         Column(
                             modifier = Modifier.fillMaxSize(),
                             horizontalAlignment = Alignment.CenterHorizontally,
@@ -105,10 +110,32 @@ class MainActivity : ComponentActivity() {
                             Button(onClick = { signIn() }) {
                                 Text("Sign in with Google")
                             }
+                            Spacer(Modifier.height(16.dp))
+                            Text(
+                                "Privacy Policy",
+                                style = MaterialTheme.typography.bodyMedium.copy(
+                                    textDecoration = TextDecoration.Underline
+                                ),
+                                color = MaterialTheme.colorScheme.primary,
+                                modifier = Modifier.clickable {
+                                    context.startActivity(
+                                        Intent(
+                                            Intent.ACTION_VIEW,
+                                            Uri.parse("https://github.com/GraafG/bambu-spool-manager/blob/main/privacy-policy.md")
+                                        )
+                                    )
+                                }
+                            )
                         }
                     }
                     AuthState.SignedIn -> {
-                        AppNavGraph(scanViewModel = scanViewModel)
+                        AppNavGraph(
+                            scanViewModel = scanViewModel,
+                            userName = firebaseAuth.currentUser?.displayName,
+                            userEmail = firebaseAuth.currentUser?.email,
+                            onSignOut = { signOut() },
+                            onDeleteAccount = { deleteAccount() }
+                        )
                     }
                 }
             }
@@ -145,6 +172,21 @@ class MainActivity : ComponentActivity() {
                 authState.value = AuthState.SignedOut
                 Toast.makeText(this@MainActivity, "Sign-in failed", Toast.LENGTH_SHORT).show()
             }
+        }
+    }
+
+    private fun signOut() {
+        googleSignInHelper.signOut()
+        authState.value = AuthState.SignedOut
+        Toast.makeText(this, "Signed out", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun deleteAccount() {
+        lifecycleScope.launch {
+            firestoreSync.deleteAllCloud()
+            googleSignInHelper.signOut()
+            authState.value = AuthState.SignedOut
+            Toast.makeText(this@MainActivity, "Account data deleted", Toast.LENGTH_SHORT).show()
         }
     }
 

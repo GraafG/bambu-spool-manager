@@ -26,15 +26,39 @@ Important: This app requires a phone with an NXP NFC chipset to read MIFARE Clas
 
 Open source: github.com/GraafG/bambu-spool-manager
 
-## Category
-Tools
+## Category & Tags
+- **Category:** Tools
+- **Tags:** 3D printing, filament, NFC, Bambu Lab, inventory, spool manager
+- **Content Rating:** Everyone
 
-## Tags
-3D printing, filament, NFC, Bambu Lab, inventory, spool manager
+## Graphics
 
-## Content Rating
-Everyone
+| Asset | Size | File |
+|-------|------|------|
+| App icon | 512x512 PNG | `images/app-icon-512.png` |
+| Feature graphic | 1024x500 PNG | `images/feature-graphic-1024x500.png` |
+| Phone screenshot 1 | 1344x2992 PNG | `images/android-app-nfc-scan.png` |
+| Phone screenshot 2 | 1344x2992 PNG | `images/android-app-inventory.png` |
+| Phone screenshot 3 | 1344x2992 PNG | `blogpost/Screenshot_20260309-211837.png` |
+| Phone screenshot 4 | 1344x2992 PNG | `blogpost/Screenshot_20260309-211844.png` |
 
-## Privacy Policy URL
-https://gist.github.com/GraafG/bsm-privacy-policy
-(create this — see privacy-policy.md)
+Tablet screenshots (7-inch and 10-inch): use the same 4 phone screenshots.
+
+## Privacy & Data Safety
+
+- **Privacy Policy URL:** https://github.com/GraafG/bambu-spool-manager/blob/main/privacy-policy.md
+- **Data collected:** NFC tag data (stored locally + cloud when signed in), Google account (name, email, profile photo for auth)
+- **Data shared with third parties:** None
+- **Analytics/tracking:** None
+- **Data deletion:** Remove spools in-app (deletes local + cloud), or open issue at github.com/GraafG/bambu-spool-manager/issues
+- **Account deletion URL:** https://github.com/GraafG/bambu-spool-manager/issues
+
+## App Access & Account
+
+- **Account creation:** Google sign-in (optional — app works without it)
+- **Account type:** Google account (existing, not created by app)
+
+## Contact Details
+
+- **Email:** graafgeert@gmail.com
+- **Website:** https://github.com/GraafG/bambu-spool-manager

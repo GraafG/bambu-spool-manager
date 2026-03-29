@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Inventory2
 import androidx.compose.material.icons.filled.Nfc
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -27,22 +28,30 @@ import com.bambu.nfc.ui.inventory.InventoryScreen
 import com.bambu.nfc.ui.inventory.InventoryViewModel
 import com.bambu.nfc.ui.scan.ScanScreen
 import com.bambu.nfc.ui.scan.ScanViewModel
+import com.bambu.nfc.ui.settings.SettingsScreen
 
 sealed class Screen(val route: String, val label: String) {
     data object Scan : Screen("scan", "Scan")
     data object Inventory : Screen("inventory", "Inventory")
+    data object Settings : Screen("settings", "Settings")
     data object Detail : Screen("detail/{spoolId}", "Detail") {
         fun createRoute(spoolId: Long) = "detail/$spoolId"
     }
 }
 
 @Composable
-fun AppNavGraph(scanViewModel: ScanViewModel) {
+fun AppNavGraph(
+    scanViewModel: ScanViewModel,
+    userName: String?,
+    userEmail: String?,
+    onSignOut: () -> Unit,
+    onDeleteAccount: () -> Unit
+) {
     val navController = rememberNavController()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
 
-    val bottomBarScreens = listOf(Screen.Scan, Screen.Inventory)
+    val bottomBarScreens = listOf(Screen.Scan, Screen.Inventory, Screen.Settings)
     val showBottomBar = currentDestination?.hierarchy?.any { dest ->
         bottomBarScreens.any { it.route == dest.route }
     } == true
@@ -58,6 +67,7 @@ fun AppNavGraph(scanViewModel: ScanViewModel) {
                                     imageVector = when (screen) {
                                         Screen.Scan -> Icons.Default.Nfc
                                         Screen.Inventory -> Icons.Default.Inventory2
+                                        Screen.Settings -> Icons.Default.Settings
                                         Screen.Detail -> Icons.Default.Inventory2
                                     },
                                     contentDescription = screen.label
@@ -97,6 +107,14 @@ fun AppNavGraph(scanViewModel: ScanViewModel) {
                     onSpoolClick = { spoolId ->
                         navController.navigate(Screen.Detail.createRoute(spoolId))
                     }
+                )
+            }
+            composable(Screen.Settings.route) {
+                SettingsScreen(
+                    userName = userName,
+                    userEmail = userEmail,
+                    onSignOut = onSignOut,
+                    onDeleteAccount = onDeleteAccount
                 )
             }
             composable(

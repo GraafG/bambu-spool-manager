@@ -121,6 +121,25 @@ class FirestoreSync @Inject constructor(
     }
 
     /**
+     * Delete all cloud spool data for the current user.
+     * Used when the user requests account deletion.
+     */
+    suspend fun deleteAllCloud() {
+        val collection = spoolsCollection() ?: return
+        try {
+            val snapshot = collection.get().await()
+            val batch = firestore.batch()
+            for (doc in snapshot.documents) {
+                batch.delete(doc.reference)
+            }
+            batch.commit().await()
+            if (BuildConfig.DEBUG) Log.d(TAG, "Deleted ${snapshot.size()} spools from Firestore")
+        } catch (e: Exception) {
+            Log.e(TAG, "Failed to delete all cloud data", e)
+        }
+    }
+
+    /**
      * Listen for real-time changes from Firestore.
      * Returns a Flow that emits whenever cloud data changes.
      */
