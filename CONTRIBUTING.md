@@ -19,7 +19,7 @@ Thanks for your interest in contributing to BSM (Bambu Spool Manager)!
 1. Open an issue first to discuss what you'd like to change
 2. Create a pull request from your feature branch to `main`
 3. Include a clear description of what changed and why
-4. All PRs are reviewed before merging
+4. PRs from outside contributors are reviewed by the maintainer before merging
 
 ## What to Contribute
 
