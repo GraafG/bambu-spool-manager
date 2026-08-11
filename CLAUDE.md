@@ -20,7 +20,7 @@ This project is **open source** — all code, docs, and setup instructions must 
 - DI: Hilt
 - Local DB: Room
 - Cloud: Firebase Firestore (offline-first sync)
-- Min SDK: 24, Target SDK: 35
+- Min SDK: 24, Target SDK: 36
 - Package: `com.bambu.nfc`
 
 ### Web App
