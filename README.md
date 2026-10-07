@@ -79,6 +79,20 @@ firebase apps:sdkconfig android --project your-project-id --out app/google-servi
 
 Enable **Authentication** (Google sign-in) and **Firestore** in the Firebase console.
 
+Google sign-in only works for builds signed with a key whose **SHA-1 fingerprint is registered** on the Firebase Android app — any other build shows "Sign-in failed". Register every key that signs the app:
+```bash
+# Debug key (Android Studio / ./gradlew installDebug)
+keytool -list -v -keystore ~/.android/debug.keystore -alias androiddebugkey -storepass android
+
+# Release/upload key (locally built release APKs and the AAB you upload to Google Play)
+keytool -list -v -keystore your-release-keystore.jks -alias your-alias
+
+# Register each SHA-1 (find the Android app ID with: firebase apps:list --project your-project-id)
+firebase apps:android:sha:create <android-app-id> <SHA-1> --project your-project-id
+```
+
+If you distribute through **Google Play**, Play re-signs the app with its own app signing key, so the upload key's fingerprint is not enough: copy the SHA-1 of the **App signing key certificate** from Play Console → *Protected with Play* → **App signing** and register it too.
+
 > **Note:** `google-services.json` is gitignored. See `app/google-services.json.example` for the expected format.
 
 #### 3. Build & Run
@@ -152,16 +166,8 @@ Firebase API keys are designed to be public (security is enforced by Firestore S
 
 **Android key** (used by the Android app):
 1. Application restrictions → **Android apps**
-2. Add package `com.bambu.nfc` with your SHA-1 fingerprints:
-   ```bash
-   # Debug fingerprint
-   keytool -list -v -keystore ~/.android/debug.keystore -alias androiddebugkey -storepass android
-
-   # Release fingerprint
-   keytool -list -v -keystore your-release-keystore.jks -alias your-alias
-   ```
+2. Add package `com.bambu.nfc` once for **each** SHA-1 fingerprint you registered in Firebase (debug, release/upload and, for Google Play builds, the Play App Signing key — see [Firebase Setup](#2-firebase-setup)). Builds signed with a key that isn't listed are rejected with `API_KEY_ANDROID_APP_BLOCKED`, so sign-in and sync fail.
 3. API restrictions → **Restrict key** → same 3 APIs as above
-4. Add both SHA-1 fingerprints to **Firebase Console** → Project Settings → Android app → SHA certificate fingerprints
 
 #### 5. Printer Hardware
 
